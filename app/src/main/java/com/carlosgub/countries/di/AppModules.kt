@@ -6,7 +6,7 @@ import com.carlosgub.countries.data.repository.CountriesRepositoryImpl
 import com.carlosgub.countries.domain.repository.CountriesRepository
 import com.carlosgub.countries.domain.usecase.GetAllCountriesUseCase
 import com.carlosgub.countries.domain.usecase.GetCountriesByNameUseCase
-import com.carlosgub.countries.presentation.viewmodel.home.HomeViewModel
+import com.carlosgub.countries.presentation.home.viewmodel.HomeViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 

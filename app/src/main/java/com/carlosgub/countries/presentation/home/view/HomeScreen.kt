@@ -1,7 +1,8 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.carlosgub.countries.presentation.views.home
+package com.carlosgub.countries.presentation.home.view
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,12 +38,12 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.carlosgub.countries.R
 import com.carlosgub.countries.domain.model.Country
-import com.carlosgub.countries.presentation.viewmodel.home.HomeScreenState
-import com.carlosgub.countries.presentation.viewmodel.home.HomeViewModel
+import com.carlosgub.countries.presentation.home.viewmodel.HomeScreenState
+import com.carlosgub.countries.presentation.home.viewmodel.HomeViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-internal fun HomeScreen() {
+internal fun HomeScreen(goToDetail: (Country) -> Unit) {
     val viewModel = koinViewModel<HomeViewModel>()
     val state = viewModel.state.collectAsStateWithLifecycle().value
     Scaffold(
@@ -55,6 +56,7 @@ internal fun HomeScreen() {
             onQueryChange = { query ->
                 viewModel.queryFieldChange(query)
             },
+            goToDetail = goToDetail,
         )
     }
 }
@@ -72,6 +74,7 @@ private fun HomeTopBar() {
 private fun HomeContent(
     state: HomeScreenState,
     onQueryChange: (String) -> Unit,
+    goToDetail: (Country) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -85,29 +88,53 @@ private fun HomeContent(
         if (state.showLoading) {
             HomeLoading()
         } else {
-            HomeCountriesListContent(state)
+            HomeCountriesListContent(
+                state = state,
+                goToDetail = goToDetail,
+            )
         }
     }
 }
 
 @Composable
-private fun HomeCountriesListContent(state: HomeScreenState) {
+private fun HomeCountriesListContent(
+    state: HomeScreenState,
+    goToDetail: (Country) -> Unit,
+) {
     if (state.query.length >= 2) {
-        HomeQueryContent(state.countriesByName)
+        HomeQueryContent(
+            countriesByName = state.countriesByName,
+            goToDetail = goToDetail,
+        )
     } else {
-        HomeAllCountriesContent(state.allCountries)
+        HomeAllCountriesContent(
+            allCountries = state.allCountries,
+            goToDetail = goToDetail,
+        )
     }
 }
 
 @Composable
-private fun HomeAllCountriesContent(allCountries: List<Country>) {
-    CountriesList(allCountries)
+private fun HomeAllCountriesContent(
+    allCountries: List<Country>,
+    goToDetail: (Country) -> Unit,
+) {
+    CountriesList(
+        countries = allCountries,
+        goToDetail = goToDetail,
+    )
 }
 
 @Composable
-private fun HomeQueryContent(countriesByName: List<Country>) {
+private fun HomeQueryContent(
+    countriesByName: List<Country>,
+    goToDetail: (Country) -> Unit,
+) {
     if (countriesByName.isNotEmpty()) {
-        CountriesList(countriesByName)
+        CountriesList(
+            countries = countriesByName,
+            goToDetail = goToDetail,
+        )
     } else {
         Text(
             stringResource(R.string.home_screen_search_error_message),
@@ -152,10 +179,14 @@ private fun HomeSearch(
 private fun CountriesList(
     countries: List<Country>,
     modifier: Modifier = Modifier,
+    goToDetail: (Country) -> Unit,
 ) {
     LazyColumn(modifier.padding(horizontal = 16.dp)) {
         items(countries) { country ->
-            CountryItem(country = country)
+            CountryItem(
+                country = country,
+                goToDetail = goToDetail,
+            )
         }
     }
 }
@@ -164,6 +195,7 @@ private fun CountriesList(
 private fun CountryItem(
     country: Country,
     modifier: Modifier = Modifier,
+    goToDetail: (Country) -> Unit,
 ) {
     Card(
         colors = CardDefaults.cardColors().copy(
@@ -171,7 +203,10 @@ private fun CountryItem(
         ),
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = 8.dp),
+            .padding(top = 8.dp)
+            .clickable {
+                goToDetail(country)
+            },
     ) {
         Row(
             modifier = Modifier

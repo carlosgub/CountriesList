@@ -1,4 +1,4 @@
-package com.carlosgub.countries.presentation.viewmodel.home
+package com.carlosgub.countries.presentation.home.viewmodel
 
 import com.carlosgub.countries.domain.model.Country
 

@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 
-package com.carlosgub.countries.presentation.viewmodel.home
+package com.carlosgub.countries.presentation.home.viewmodel
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
