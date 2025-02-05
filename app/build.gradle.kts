@@ -10,6 +10,10 @@ android {
     namespace = "com.carlosgub.countries"
     compileSdk = 35
 
+    viewBinding {
+        enable = true
+    }
+
     defaultConfig {
         applicationId = "com.carlosgub.countries"
         minSdk = 24

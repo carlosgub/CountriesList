@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="16dp"
     tools:context=".presentation.detail.DetailActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -13,6 +14,74 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivDetailFlag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tbDetailToolbar" />
+
+    <TextView
+        android:id="@+id/tvDetailNameCommon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivDetailFlag"
+        tools:text="Ireland" />
+
+    <TextView
+        android:id="@+id/tvDetailNameOfficial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDetailNameCommon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/tvDetailNameCommon"
+        app:layout_constraintTop_toTopOf="@+id/tvDetailNameCommon"
+        tools:text="Republic of Ireland" />
+
+    <TextView
+        android:layout_marginTop="12dp"
+        android:id="@+id/tvDetailCapitalTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailNameCommon"
+        android:text="@string/detail_capital_title" />
+
+    <TextView
+        android:id="@+id/tvDetailCapital"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDetailCapitalTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/tvDetailCapitalTitle"
+        app:layout_constraintTop_toTopOf="@+id/tvDetailCapitalTitle"
+        tools:text="Dublin" />
+
+    <TextView
+        android:layout_marginTop="12dp"
+        android:id="@+id/tvDetailRegionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailCapital"
+        android:text="@string/detail_region_title" />
+
+    <TextView
+        android:id="@+id/tvDetailRegion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDetailRegionTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/tvDetailRegionTitle"
+        app:layout_constraintTop_toTopOf="@+id/tvDetailRegionTitle"
+        tools:text="Europe" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

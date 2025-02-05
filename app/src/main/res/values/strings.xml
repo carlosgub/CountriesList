@@ -7,4 +7,14 @@
     <string name="home_screen_search_error_message">It didn\'t find any country with that query.</string>
     <string name="home_screen_text_field_placeholder">Add at least two characters</string>
     <!--endregion-->
+
+    <!--region Detail Screen-->
+    <string name="detail_capital_title">Capital - </string>
+    <string name="detail_region_title">Region - </string>
+    <string name="detail_sub_region_title">Subregion - </string>
+    <string name="detail_languages_title">Languages - </string>
+    <string name="detail_currencies_title">Currencies - </string>
+    <string name="detail_population_title">Region - </string>
+    <string name="detail_card_driver_side_title">Car Driver Side - </string>
+    <!--endregion-->
 </resources>
