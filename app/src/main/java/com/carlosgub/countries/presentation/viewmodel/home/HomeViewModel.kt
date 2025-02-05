@@ -21,7 +21,6 @@ internal class HomeViewModel(
     private val getAllCountriesUseCase: GetAllCountriesUseCase,
     private val getCountriesByNameUseCase: GetCountriesByNameUseCase,
 ) : ViewModel() {
-
     private val _state = MutableStateFlow(HomeScreenState())
     val state = _state.asStateFlow()
 
@@ -35,7 +34,7 @@ internal class HomeViewModel(
         viewModelScope.launch {
             showLoading(true)
             _state.value = _state.value.copy(
-                allCountries = getAllCountriesUseCase()
+                allCountries = getAllCountriesUseCase(),
             )
             showLoading(false)
         }
@@ -69,6 +68,5 @@ internal class HomeViewModel(
 
     private fun showLoading(show: Boolean) {
         _state.value = _state.value.copy(showLoading = show)
-
     }
 }

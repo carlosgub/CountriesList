@@ -29,33 +29,35 @@ class GetCountriesByNameUseCaseTest {
     }
 
     @Test
-    fun `getCountriesByName should return a list of countries`() = runBlocking {
-        // Given
-        val query = "query"
-        coEvery { repository.getCountriesByName(query) } returns countryList
+    fun `getCountriesByName should return a list of countries`() =
+        runBlocking {
+            // Given
+            val query = "query"
+            coEvery { repository.getCountriesByName(query) } returns countryList
 
-        // When
-        val result = useCase(query).first()
+            // When
+            val result = useCase(query).first()
 
-        // Then
-        coVerify(exactly = 1) { repository.getCountriesByName(query) }
-        assertEquals(countryList.size, result.size)
-        assertEquals(countryList, result)
-    }
+            // Then
+            coVerify(exactly = 1) { repository.getCountriesByName(query) }
+            assertEquals(countryList.size, result.size)
+            assertEquals(countryList, result)
+        }
 
     @Test
-    fun `getCountriesByName should return a empty list of countries`() = runBlocking {
-        // Given
-        val query = "query"
-        val list = listOf<Country>()
-        coEvery { repository.getCountriesByName(query) } returns list
+    fun `getCountriesByName should return a empty list of countries`() =
+        runBlocking {
+            // Given
+            val query = "query"
+            val list = listOf<Country>()
+            coEvery { repository.getCountriesByName(query) } returns list
 
-        // When
-        val result = useCase(query).first()
+            // When
+            val result = useCase(query).first()
 
-        // Then
-        coVerify(exactly = 1) { repository.getCountriesByName(query) }
-        assertEquals(list.size, result.size)
-        assertEquals(list, result)
-    }
+            // Then
+            coVerify(exactly = 1) { repository.getCountriesByName(query) }
+            assertEquals(list.size, result.size)
+            assertEquals(list, result)
+        }
 }

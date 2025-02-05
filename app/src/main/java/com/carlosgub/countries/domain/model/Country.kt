@@ -16,6 +16,6 @@ data class Country(
 
     @Serializable
     data class CountryFlag(
-        val png:String,
+        val png: String,
     )
 }

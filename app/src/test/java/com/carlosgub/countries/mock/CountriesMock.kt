@@ -11,7 +11,7 @@ val peru =
         capital = listOf("Lima"),
         flags = Country.CountryFlag(
             png = "https://flagcdn.com/w320/pe.png",
-        )
+        ),
     )
 
 val usa =
@@ -23,7 +23,7 @@ val usa =
         capital = listOf("Washington"),
         flags = Country.CountryFlag(
             png = "https://flagcdn.com/w320/us.png",
-        )
+        ),
     )
 
 val countryList = listOf(usa, peru)

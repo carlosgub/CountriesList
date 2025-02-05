@@ -11,12 +11,12 @@ lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.0"
 composeBom = "2025.01.01"
 mockk = "1.13.8"
-retrofitMock = "2.9.0"
 retrofitVersion = "2.11.0"
 kotlinSerializationVersion = "1.8.0"
 okHttpVersion = "4.12.0"
 koinVersion = "4.0.0"
 lifecycleRuntimeComposeAndroid = "2.8.7"
+ktlintVersion = "4.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -55,4 +55,5 @@ androidx-lifecycle-runtime-compose-android = { group = "androidx.lifecycle", nam
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+ktlint = { id = "org.jmailen.kotlinter", version.ref = "ktlintVersion"}
 

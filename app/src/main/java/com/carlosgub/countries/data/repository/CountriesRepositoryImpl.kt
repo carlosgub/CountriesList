@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 internal class CountriesRepositoryImpl(
-    private val countriesRemoteDataSource: CountriesRemoteDataSource
+    private val countriesRemoteDataSource: CountriesRemoteDataSource,
 ) : CountriesRepository {
     override suspend fun getAllCountries(): List<Country> =
         withContext(Dispatchers.IO) {

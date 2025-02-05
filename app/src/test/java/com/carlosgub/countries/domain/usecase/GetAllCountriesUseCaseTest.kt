@@ -13,7 +13,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-class GetAllCountriesUseCaseTest{
+class GetAllCountriesUseCaseTest {
     private lateinit var useCase: GetAllCountriesUseCase
     private val repository: CountriesRepository = mockk()
 
@@ -28,31 +28,36 @@ class GetAllCountriesUseCaseTest{
     }
 
     @Test
-    fun `getAllCountries should return a list of countries`() = runBlocking {
-        // Given
-        coEvery { repository.getAllCountries() } returns countryList
+    fun `getAllCountries should return a list of countries`() =
+        runBlocking {
+            // Given
+            coEvery { repository.getAllCountries() } returns countryList
 
-        // When
-        val result = useCase()
+            // When
+            val result = useCase()
 
-        // Then
-        coVerify(exactly = 1) { repository.getAllCountries() }
-        assertEquals(countryList.size,result.size)
-        assertEquals(countryList, result)
-    }
+            // Then
+            coVerify(exactly = 1) { repository.getAllCountries() }
+            assertEquals(
+                countryList.size,
+                result.size,
+            )
+            assertEquals(countryList, result)
+        }
 
     @Test
-    fun `getAllCountries should return a empty list of countries`() = runBlocking {
-        // Given
-        val list = listOf<Country>()
-        coEvery { repository.getAllCountries() } returns list
+    fun `getAllCountries should return a empty list of countries`() =
+        runBlocking {
+            // Given
+            val list = listOf<Country>()
+            coEvery { repository.getAllCountries() } returns list
 
-        // When
-        val result = useCase()
+            // When
+            val result = useCase()
 
-        // Then
-        coVerify(exactly = 1) { repository.getAllCountries() }
-        assertEquals(list.size,result.size)
-        assertEquals(list, result)
-    }
+            // Then
+            coVerify(exactly = 1) { repository.getAllCountries() }
+            assertEquals(list.size, result.size)
+            assertEquals(list, result)
+        }
 }

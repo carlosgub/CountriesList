@@ -15,8 +15,8 @@ object RetrofitInstance {
             .baseUrl(BASE_URL)
             .addConverterFactory(
                 withUnknownKeys.asConverterFactory(
-                    "application/json; charset=UTF8".toMediaType()
-                )
+                    "application/json; charset=UTF8".toMediaType(),
+                ),
             )
             .build()
     }

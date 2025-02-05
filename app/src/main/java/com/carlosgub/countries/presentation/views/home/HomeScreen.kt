@@ -47,14 +47,14 @@ internal fun HomeScreen() {
     val state = viewModel.state.collectAsStateWithLifecycle().value
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = { HomeTopBar() }
+        topBar = { HomeTopBar() },
     ) { innerPadding ->
         HomeContent(
             state = state,
             modifier = Modifier.padding(innerPadding),
             onQueryChange = { query ->
                 viewModel.queryFieldChange(query)
-            }
+            },
         )
     }
 }
@@ -64,7 +64,7 @@ private fun HomeTopBar() {
     CenterAlignedTopAppBar(
         title = {
             Text(stringResource(R.string.home_screen_title))
-        }
+        },
     )
 }
 
@@ -72,15 +72,15 @@ private fun HomeTopBar() {
 private fun HomeContent(
     state: HomeScreenState,
     onQueryChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxSize(),
     ) {
         HomeSearch(
             query = state.query,
-            onQueryChange = onQueryChange
+            onQueryChange = onQueryChange,
         )
         if (state.showLoading) {
             HomeLoading()
@@ -101,26 +101,20 @@ private fun HomeCountriesListContent(state: HomeScreenState) {
 
 @Composable
 private fun HomeAllCountriesContent(allCountries: List<Country>) {
-    CountriesList(
-        allCountries
-    )
+    CountriesList(allCountries)
 }
 
 @Composable
-private fun HomeQueryContent(
-    countriesByName: List<Country>,
-) {
+private fun HomeQueryContent(countriesByName: List<Country>) {
     if (countriesByName.isNotEmpty()) {
-        CountriesList(
-            countriesByName
-        )
+        CountriesList(countriesByName)
     } else {
         Text(
             stringResource(R.string.home_screen_search_error_message),
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(16.dp),
         )
     }
 }
@@ -142,22 +136,22 @@ private fun HomeSearch(
         keyboardActions = KeyboardActions(
             onSearch = {
                 focusManager.clearFocus(force = true)
-            }
+            },
         ),
         keyboardOptions = KeyboardOptions.Default.copy(
-            imeAction = ImeAction.Search
+            imeAction = ImeAction.Search,
         ),
         singleLine = true,
         modifier = modifier
             .padding(16.dp)
-            .fillMaxWidth()
+            .fillMaxWidth(),
     )
 }
 
 @Composable
 private fun CountriesList(
     countries: List<Country>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(modifier.padding(horizontal = 16.dp)) {
         items(countries) { country ->
@@ -169,21 +163,21 @@ private fun CountriesList(
 @Composable
 private fun CountryItem(
     country: Country,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Card(
         colors = CardDefaults.cardColors().copy(
-            containerColor = Color.White
+            containerColor = Color.White,
         ),
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = 8.dp)
+            .padding(top = 8.dp),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
@@ -196,7 +190,7 @@ private fun CountryItem(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 12.dp)
+                    .padding(start = 12.dp),
             ) {
                 Text(text = country.name.common)
                 Text(text = country.name.official)
@@ -214,7 +208,7 @@ private fun HomeLoading(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         CircularProgressIndicator()
     }

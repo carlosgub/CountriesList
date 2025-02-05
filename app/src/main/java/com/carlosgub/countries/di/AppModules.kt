@@ -7,19 +7,19 @@ import com.carlosgub.countries.domain.repository.CountriesRepository
 import com.carlosgub.countries.domain.usecase.GetAllCountriesUseCase
 import com.carlosgub.countries.domain.usecase.GetCountriesByNameUseCase
 import com.carlosgub.countries.presentation.viewmodel.home.HomeViewModel
-import org.koin.dsl.module
 import org.koin.core.module.dsl.viewModelOf
+import org.koin.dsl.module
 
 val appModules = module {
     single {
         RetrofitInstance.getInstance()
     }
 
-    /*region ViewModel*/
+    // region ViewModel
     viewModelOf(::HomeViewModel)
-    /*endregion*/
+    // endregion
 
-    /*region UseCases*/
+    // region UseCases
     factory {
         GetAllCountriesUseCase(
             countriesRepository = get(),
@@ -31,21 +31,21 @@ val appModules = module {
             countriesRepository = get(),
         )
     }
-    /*endregion*/
+    // endregion
 
-    /*region Repository*/
+    // region Repository
     factory<CountriesRepository> {
         CountriesRepositoryImpl(
             countriesRemoteDataSource = get(),
         )
     }
-    /*endregion*/
+    // endregion
 
-    /*region DataSources*/
+    // region DataSources
     factory {
         CountriesRemoteDataSource(
             retrofit = get(),
         )
     }
-    /*endregion*/
+    // endregion
 }

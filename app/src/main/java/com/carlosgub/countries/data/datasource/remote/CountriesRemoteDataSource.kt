@@ -4,9 +4,8 @@ import com.carlosgub.countries.domain.model.Country
 import retrofit2.Retrofit
 
 internal class CountriesRemoteDataSource(
-    private val retrofit: Retrofit
+    private val retrofit: Retrofit,
 ) {
-
     suspend fun getAllCountries(): List<Country> {
         return retrofit.create(CountriesService::class.java)
             .getAllCountries()
@@ -17,7 +16,5 @@ internal class CountriesRemoteDataSource(
         return retrofit.create(CountriesService::class.java)
             .getCountriesByName(query)
             .body() ?: listOf()
-
     }
-
 }

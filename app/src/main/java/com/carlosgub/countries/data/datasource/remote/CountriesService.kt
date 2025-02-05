@@ -10,5 +10,7 @@ interface CountriesService {
     suspend fun getAllCountries(): Response<List<Country>>
 
     @GET("/v3.1/name/{query}")
-    suspend fun getCountriesByName(@Path("query") query: String): Response<List<Country>>
+    suspend fun getCountriesByName(
+        @Path("query") query: String,
+    ): Response<List<Country>>
 }
