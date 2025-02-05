@@ -26,6 +26,8 @@
 
     <TextView
         android:id="@+id/tvDetailNameCommon"
+        android:textSize="28sp"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,6 +38,9 @@
         android:id="@+id/tvDetailNameOfficial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
+        android:textSize="14sp"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/tvDetailNameCommon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
@@ -44,16 +49,19 @@
         tools:text="Republic of Ireland" />
 
     <TextView
-        android:layout_marginTop="12dp"
         android:id="@+id/tvDetailCapitalTitle"
+        android:layout_marginTop="12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDetailNameCommon"
         android:text="@string/detail_capital_title" />
 
     <TextView
         android:id="@+id/tvDetailCapital"
+        android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/tvDetailCapitalTitle"
@@ -61,18 +69,22 @@
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@+id/tvDetailCapitalTitle"
         app:layout_constraintTop_toTopOf="@+id/tvDetailCapitalTitle"
+        android:layout_marginStart="4dp"
         tools:text="Dublin" />
 
     <TextView
-        android:layout_marginTop="12dp"
         android:id="@+id/tvDetailRegionTitle"
+        android:layout_marginTop="12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDetailCapital"
         android:text="@string/detail_region_title" />
 
     <TextView
+        android:textSize="18sp"
         android:id="@+id/tvDetailRegion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,6 +93,7 @@
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@+id/tvDetailRegionTitle"
         app:layout_constraintTop_toTopOf="@+id/tvDetailRegionTitle"
+        android:layout_marginStart="4dp"
         tools:text="Europe" />
 
 
