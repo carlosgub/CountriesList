@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CountryList</string>
+
+    <!--region Home Screen-->
+    <string name="home_screen_title">Countries</string>
+    <string name="home_screen_search_placeholder">Search a country</string>
+    <string name="home_screen_search_error_message">It didn\'t find any country with that query.</string>
+    <string name="home_screen_text_field_placeholder">Add at least two characters</string>
+    <!--endregion-->
+</resources>
