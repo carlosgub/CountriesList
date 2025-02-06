@@ -50,8 +50,7 @@ internal class HomeViewModel(
 
     private fun search() {
         viewModelScope.launch {
-            _state
-                .asStateFlow()
+            state
                 .map { it.query }
                 .filter { query ->
                     query.length >= 2 && query.trim().isEmpty().not()
