@@ -30,8 +30,7 @@ internal class HomeViewModel(
         search()
     }
 
-    @VisibleForTesting
-    fun getAllCountries() {
+    private fun getAllCountries() {
         viewModelScope.launch {
             showLoading(true)
             _state.value = _state.value.copy(

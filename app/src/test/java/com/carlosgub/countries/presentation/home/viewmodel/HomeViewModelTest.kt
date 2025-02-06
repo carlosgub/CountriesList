@@ -23,19 +23,16 @@ class HomeViewModelTest {
 
     @Before
     fun setUp() {
+        coEvery { getAllCountriesUseCase.invoke() } returns countryList
         viewModel = HomeViewModel(getAllCountriesUseCase, getCountriesByNameUseCase)
     }
 
     @Test
     fun `getAllCountries should update state with countries`() =
         runTest {
-            // Given
-            coEvery { getAllCountriesUseCase.invoke() } returns countryList
+            //The calls is made in the init block
 
-            // When
-            viewModel.getAllCountries()
-
-            // Then
+            // Verify
             val updatedState = viewModel.state.first { it.allCountries.isNotEmpty() }
             assertEquals(countryList, updatedState.allCountries)
         }
@@ -81,8 +78,22 @@ class HomeViewModelTest {
             viewModel.queryFieldChange(query)
 
             // Assert
-            val updatedState = viewModel.state.first { it.countriesByName.isNotEmpty() }
+            val updatedState = viewModel.state.first { it.query == query && it.countriesByName.isNotEmpty() }
             assertEquals(countryList, updatedState.countriesByName)
             coVerify(exactly = 1) { getCountriesByNameUseCase(query) }
+        }
+
+    @Test
+    fun `search should call getCountriesByNameUseCase when query is invalid`() =
+        runTest {
+            // Given
+            val query = "p"
+            coEvery { getCountriesByNameUseCase.invoke(query) } returns flow { emit(countryList) }
+
+            // When
+            viewModel.queryFieldChange(query)
+
+            // Assert
+            coVerify(exactly = 0) { getCountriesByNameUseCase(query) }
         }
 }
