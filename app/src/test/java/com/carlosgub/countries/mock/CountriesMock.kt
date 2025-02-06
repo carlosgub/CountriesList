@@ -12,7 +12,20 @@ val peru =
         flags = Country.CountryFlag(
             png = "https://flagcdn.com/w320/pe.png",
         ),
-    )
+        region = "Americas",
+        subregion = "South America",
+        languages = mapOf(
+            "spa" to "Spanish",
+        ),
+        currencies = mapOf(
+            "PEN" to Country.CountryCurrency(
+                name = "Peruvian Sol",
+                symbol = "S/.",
+            ),
+        ),
+        population = 32971849,
+
+        )
 
 val usa =
     Country(
@@ -24,6 +37,18 @@ val usa =
         flags = Country.CountryFlag(
             png = "https://flagcdn.com/w320/us.png",
         ),
+        region = "Americas",
+        subregion = "North America",
+        languages = mapOf(
+            "eng" to "English",
+        ),
+        currencies = mapOf(
+            "USD" to Country.CountryCurrency(
+                name = "United States Dollar",
+                symbol = "$",
+            ),
+        ),
+        population = 32971849,
     )
 
 val countryList = listOf(usa, peru)
