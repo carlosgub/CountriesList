@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 internal class HomeViewModel(
@@ -51,13 +52,14 @@ internal class HomeViewModel(
         viewModelScope.launch {
             _state
                 .asStateFlow()
-                .filter {
-                    it.isQueryValid()
+                .map { it.query }
+                .filter { query ->
+                    query.length >= 2 && query.trim().isEmpty().not()
                 }
                 .debounce(300L)
                 .distinctUntilChanged()
                 .flatMapLatest { query ->
-                    getCountriesByNameUseCase(query.query)
+                    getCountriesByNameUseCase(query)
                 }
                 .collect { countries ->
                     _state.value = _state.value.copy(countriesByName = countries)

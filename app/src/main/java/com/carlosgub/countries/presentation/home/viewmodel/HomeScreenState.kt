@@ -7,6 +7,4 @@ data class HomeScreenState(
     val countriesByName: List<Country> = listOf(),
     val showLoading: Boolean = false,
     val query: String = "",
-) {
-    fun isQueryValid() = query.length >= 2 && query.trim().isEmpty().not()
-}
+)
