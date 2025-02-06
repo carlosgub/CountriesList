@@ -14,7 +14,8 @@
     <string name="detail_sub_region_title">Subregion - </string>
     <string name="detail_languages_title">Languages - </string>
     <string name="detail_currencies_title">Currencies - </string>
-    <string name="detail_population_title">Region - </string>
+    <string name="detail_population_title">Population - </string>
     <string name="detail_card_driver_side_title">Car Driver Side - </string>
+    <string name="detail_card_coat_of_arms_title">Coat of Arms</string>
     <!--endregion-->
 </resources>

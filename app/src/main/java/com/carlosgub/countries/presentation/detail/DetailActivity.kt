@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
 import com.carlosgub.countries.R
 import com.carlosgub.countries.databinding.ActivityDetailBinding
 import com.carlosgub.countries.domain.model.Country
@@ -40,8 +41,27 @@ class DetailActivity : AppCompatActivity() {
             finish()
         }
 
+        Glide.with(this).load(country.flags.png).into(binding.ivDetailFlag)
 
+        binding.tvDetailNameCommon.text = country.name.common
+        binding.tvDetailNameOfficial.text = country.name.official
 
+        binding.tvDetailCapital.text = country.capital?.firstOrNull() ?: "N/A"
+
+        binding.tvDetailRegion.text = country.region ?: "N/A"
+
+        binding.tvDetailSubRegion.text = country.subregion ?: "N/A"
+
+        binding.tvDetailLanguages.text = country.languages?.values?.joinToString(", ") ?: "N/A"
+
+        binding.tvDetailCurrencies.text =
+            country.currencies?.values?.joinToString(", ") { it.name } ?: "N/A"
+
+        binding.tvDetailPopulation.text = country.population.toString()
+
+        binding.tvDetailCarDriverSide.text = country.car?.side ?: "N/A"
+
+        Glide.with(this).load(country.coatOfArms?.png).into(binding.ivDetailCoatOfArms)
     }
 
     companion object {

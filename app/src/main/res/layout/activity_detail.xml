@@ -5,7 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
     tools:context=".presentation.detail.DetailActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -16,85 +15,231 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/ivDetailFlag"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsvDetail"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tbDetailToolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/tbDetailToolbar">
 
-    <TextView
-        android:id="@+id/tvDetailNameCommon"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivDetailFlag"
-        tools:text="Ireland" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvDetailNameOfficial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/ivDetailFlag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        android:textSize="14sp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvDetailNameCommon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toEndOf="@+id/tvDetailNameCommon"
-        app:layout_constraintTop_toTopOf="@+id/tvDetailNameCommon"
-        tools:text="Republic of Ireland" />
+            <TextView
+                android:id="@+id/tvDetailNameCommon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivDetailFlag"
+                tools:text="Ireland" />
 
-    <TextView
-        android:id="@+id/tvDetailCapitalTitle"
-        android:layout_marginTop="12dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDetailNameCommon"
-        android:text="@string/detail_capital_title" />
+            <TextView
+                android:id="@+id/tvDetailNameOfficial"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDetailNameCommon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvDetailNameCommon"
+                app:layout_constraintTop_toTopOf="@+id/tvDetailNameCommon"
+                tools:text="Republic of Ireland" />
 
-    <TextView
-        android:id="@+id/tvDetailCapital"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/tvDetailCapitalTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toEndOf="@+id/tvDetailCapitalTitle"
-        app:layout_constraintTop_toTopOf="@+id/tvDetailCapitalTitle"
-        android:layout_marginStart="4dp"
-        tools:text="Dublin" />
+            <TextView
+                android:id="@+id/tvDetailCapitalTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/detail_capital_title"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailNameCommon" />
 
-    <TextView
-        android:id="@+id/tvDetailRegionTitle"
-        android:layout_marginTop="12dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDetailCapital"
-        android:text="@string/detail_region_title" />
+            <TextView
+                android:id="@+id/tvDetailCapital"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDetailCapitalTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvDetailCapitalTitle"
+                app:layout_constraintTop_toTopOf="@+id/tvDetailCapitalTitle"
+                tools:text="Dublin" />
 
-    <TextView
-        android:textSize="18sp"
-        android:id="@+id/tvDetailRegion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/tvDetailRegionTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toEndOf="@+id/tvDetailRegionTitle"
-        app:layout_constraintTop_toTopOf="@+id/tvDetailRegionTitle"
-        android:layout_marginStart="4dp"
-        tools:text="Europe" />
+            <TextView
+                android:id="@+id/tvDetailRegionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/detail_region_title"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailCapital" />
 
+            <TextView
+                android:id="@+id/tvDetailRegion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDetailRegionTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvDetailRegionTitle"
+                app:layout_constraintTop_toTopOf="@+id/tvDetailRegionTitle"
+                tools:text="Europe" />
 
+            <TextView
+                android:id="@+id/tvDetailSubRegionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/detail_sub_region_title"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailRegionTitle" />
+
+            <TextView
+                android:id="@+id/tvDetailSubRegion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDetailSubRegionTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvDetailSubRegionTitle"
+                app:layout_constraintTop_toTopOf="@+id/tvDetailSubRegionTitle"
+                tools:text="Northern Europe" />
+
+            <TextView
+                android:id="@+id/tvDetailLanguagesTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/detail_languages_title"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailSubRegionTitle" />
+
+            <TextView
+                android:id="@+id/tvDetailLanguages"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDetailLanguagesTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvDetailLanguagesTitle"
+                app:layout_constraintTop_toTopOf="@+id/tvDetailLanguagesTitle"
+                tools:text="EUR (euro)" />
+
+            <TextView
+                android:id="@+id/tvDetailCurrenciesTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/detail_currencies_title"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailLanguagesTitle" />
+
+            <TextView
+                android:id="@+id/tvDetailCurrencies"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDetailCurrenciesTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvDetailCurrenciesTitle"
+                app:layout_constraintTop_toTopOf="@+id/tvDetailCurrenciesTitle"
+                tools:text="English, Irish" />
+
+            <TextView
+                android:id="@+id/tvDetailPopulationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/detail_population_title"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailCurrenciesTitle" />
+
+            <TextView
+                android:id="@+id/tvDetailPopulation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDetailPopulationTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvDetailPopulationTitle"
+                app:layout_constraintTop_toTopOf="@+id/tvDetailPopulationTitle"
+                tools:text="4994724" />
+
+            <TextView
+                android:id="@+id/tvDetailCarDriverSideTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/detail_card_driver_side_title"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailPopulationTitle" />
+
+            <TextView
+                android:id="@+id/tvDetailCarDriverSide"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDetailCarDriverSideTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvDetailCarDriverSideTitle"
+                app:layout_constraintTop_toTopOf="@+id/tvDetailCarDriverSideTitle"
+                tools:text="Left" />
+
+            <TextView
+                android:id="@+id/tvDetailCoatOfArmsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/detail_card_coat_of_arms_title"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailCarDriverSideTitle" />
+
+            <ImageView
+                android:id="@+id/ivDetailCoatOfArms"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailCoatOfArmsTitle"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
+

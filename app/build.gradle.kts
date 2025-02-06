@@ -69,6 +69,8 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
 
+    implementation(libs.glide)
+
     implementation(libs.androidx.lifecycle.runtime.compose.android)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
