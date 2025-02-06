@@ -17,5 +17,7 @@
     <string name="detail_population_title">Population - </string>
     <string name="detail_card_driver_side_title">Car Driver Side - </string>
     <string name="detail_card_coat_of_arms_title">Coat of Arms</string>
+    <string name="detail_country_flag_content_description">Country Flag</string>
+    <string name="detail_coat_of_arms_content_description">Coat of Arms Flag</string>
     <!--endregion-->
 </resources>

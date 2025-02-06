@@ -30,6 +30,7 @@
             android:padding="16dp">
 
             <ImageView
+                android:contentDescription="@string/detail_country_flag_content_description"
                 android:id="@+id/ivDetailFlag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -237,6 +238,7 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:contentDescription="@string/detail_coat_of_arms_content_description"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvDetailCoatOfArmsTitle"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
