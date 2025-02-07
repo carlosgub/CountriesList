@@ -26,7 +26,7 @@ internal class HomeViewModel(
         queryJob = viewModelScope.launch {
             delay(300L)
             val countries = getCountriesListUseCase(query)
-            _state.value = when(countries){
+            _state.value = when (countries) {
                 is GenericState.Error -> HomeScreenState.Error(countries.message)
                 is GenericState.Success -> HomeScreenState.Success(countries.item)
             }

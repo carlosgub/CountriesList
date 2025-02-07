@@ -22,7 +22,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.carlosgub.countries.R
 import com.carlosgub.countries.domain.model.Country
 import com.carlosgub.countries.presentation.home.view.observer.HomeObserver
