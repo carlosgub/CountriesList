@@ -1,6 +1,6 @@
 package com.carlosgub.countries.data.datasource.remote
 
-import com.carlosgub.countries.domain.model.Country
+import com.carlosgub.countries.core.sealed.GenericState
 import com.carlosgub.countries.mock.countryList
 import com.carlosgub.countries.mock.usa
 import io.mockk.clearAllMocks
@@ -44,21 +44,48 @@ class CountriesRemoteDataSourceTest {
 
             // Then
             coVerify(exactly = 1) { mockService.getAllCountries() }
-            assertEquals(countryList, result)
+            assertEquals(
+                GenericState.Success(countryList),
+                result
+            )
         }
 
     @Test
-    fun `getAllCountries should return empty list when response is null`() =
+    fun `getAllCountries should return error state when response is null`() =
         runBlocking {
             // Given
-            coEvery { mockService.getAllCountries() } returns Response.success(null)
+            coEvery {
+                mockService.getAllCountries()
+            } returns Response.error(
+                404,
+                "error".toResponseBody("application/json".toMediaType()),
+            )
 
             // When
             val result = remoteDataSource.getAllCountries()
 
             // Then
             coVerify(exactly = 1) { mockService.getAllCountries() }
-            assertEquals(emptyList<Country>(), result)
+            assertEquals(GenericState.Error("We have a problem"), result)
+        }
+
+    @Test
+    fun `getAllCountries should return error when body is null`() =
+        runBlocking {
+            // Given
+            coEvery {
+                mockService.getAllCountries()
+            } returns Response.success(null)
+
+            // When
+            val result = remoteDataSource.getAllCountries()
+
+            // Then
+            coVerify(exactly = 1) { mockService.getAllCountries() }
+            assertEquals(
+                GenericState.Error("null"),
+                result
+            )
         }
 
     @Test
@@ -73,16 +100,21 @@ class CountriesRemoteDataSourceTest {
 
             // Then
             coVerify(exactly = 1) { mockService.getCountriesByName("U") }
-            assertEquals(mockCountries, result)
+            assertEquals(
+                GenericState.Success(mockCountries),
+                result
+            )
         }
 
     @Test
-    fun `getCountryByName should return empty list when API fails`() =
+    fun `getCountryByName should return error state when API fails`() =
         runBlocking {
             // Given
-            coEvery { mockService.getCountriesByName("U") } returns Response.error(
+            coEvery {
+                mockService.getCountriesByName("U")
+            } returns Response.error(
                 404,
-                "".toResponseBody("application/json".toMediaType()),
+                "error".toResponseBody("application/json".toMediaType()),
             )
 
             // When
@@ -90,6 +122,28 @@ class CountriesRemoteDataSourceTest {
 
             // Then
             coVerify(exactly = 1) { mockService.getCountriesByName("U") }
-            assertEquals(emptyList<Country>(), result)
+            assertEquals(
+                GenericState.Error("We have a problem"),
+                result
+            )
+        }
+
+    @Test
+    fun `getCountryByName should return error when body is null`() =
+        runBlocking {
+            // Given
+            coEvery {
+                mockService.getCountriesByName("U")
+            } returns Response.success(null)
+
+            // When
+            val result = remoteDataSource.getCountriesByName("U")
+
+            // Then
+            coVerify(exactly = 1) { mockService.getCountriesByName("U") }
+            assertEquals(
+                GenericState.Error("null"),
+                result
+            )
         }
 }

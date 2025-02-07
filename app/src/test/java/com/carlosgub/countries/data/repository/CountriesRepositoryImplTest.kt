@@ -1,5 +1,6 @@
 package com.carlosgub.countries.data.repository
 
+import com.carlosgub.countries.core.sealed.GenericState
 import com.carlosgub.countries.data.datasource.remote.CountriesRemoteDataSource
 import com.carlosgub.countries.mock.countryList
 import com.carlosgub.countries.mock.usa
@@ -31,28 +32,59 @@ class CountriesRepositoryImplTest {
     fun `getAllCountries should return a list of countries`() =
         runBlocking {
             // Given
-            coEvery { countriesRemoteDataSource.getAllCountries() } returns countryList
+            val response = GenericState.Success(countryList)
+            coEvery { countriesRemoteDataSource.getAllCountries() } returns response
 
             // When
             val result = repository.getAllCountries()
 
             // Then
             coVerify(exactly = 1) { countriesRemoteDataSource.getAllCountries() }
-            assertEquals(countryList, result)
+            assertEquals(response, result)
         }
 
     @Test
     fun `getCountryByName should return a list of countries`() =
         runBlocking {
             // Given
-            val mockCountries = listOf(usa)
-            coEvery { countriesRemoteDataSource.getCountriesByName(any()) } returns mockCountries
+            val response = GenericState.Success(listOf(usa))
+            coEvery { countriesRemoteDataSource.getCountriesByName(any()) } returns response
 
             // When
             val result = repository.getCountriesByName("U")
 
             // Then
             coVerify(exactly = 1) { countriesRemoteDataSource.getCountriesByName("U") }
-            assertEquals(mockCountries, result)
+            assertEquals(response, result)
+        }
+
+    @Test
+    fun `getCountriesByName should return an error`() =
+        runBlocking {
+            // Given
+            val response = GenericState.Error("error")
+            coEvery { countriesRemoteDataSource.getCountriesByName(any()) } returns response
+
+            // When
+            val result = repository.getCountriesByName("U")
+
+            // Then
+            coVerify(exactly = 1) { countriesRemoteDataSource.getCountriesByName("U") }
+            assertEquals(response, result)
+        }
+
+    @Test
+    fun `getAllCountries should return an error`() =
+        runBlocking {
+            // Given
+            val response = GenericState.Error("error")
+            coEvery { countriesRemoteDataSource.getAllCountries() } returns response
+
+            // When
+            val result = repository.getAllCountries()
+
+            // Then
+            coVerify(exactly = 1) { countriesRemoteDataSource.getAllCountries() }
+            assertEquals(response, result)
         }
 }

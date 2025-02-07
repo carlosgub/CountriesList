@@ -2,6 +2,7 @@ package com.carlosgub.countries.presentation.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.carlosgub.countries.core.sealed.GenericState
 import com.carlosgub.countries.domain.usecase.GetCountriesListUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -18,18 +19,17 @@ internal class HomeViewModel(
     private var queryJob: Job? = null
 
     fun queryFieldChange(query: String) {
-        if (_state.value is HomeScreenState.Loading) return
+        _state.value = HomeScreenState.Loading
 
         queryJob?.cancel()
-
-        _state.value = HomeScreenState.Loading
 
         queryJob = viewModelScope.launch {
             delay(300L)
             val countries = getCountriesListUseCase(query)
-            _state.value = HomeScreenState.Success(
-                countriesList = countries
-            )
+            _state.value = when(countries){
+                is GenericState.Error -> HomeScreenState.Error(countries.message)
+                is GenericState.Success -> HomeScreenState.Success(countries.item)
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.carlosgub.countries.domain.usecase
 
+import com.carlosgub.countries.core.sealed.GenericState
 import com.carlosgub.countries.domain.model.Country
 import com.carlosgub.countries.domain.repository.CountriesRepository
 import com.carlosgub.countries.mock.countryList
@@ -31,7 +32,8 @@ class GetCountriesListUseCaseTest {
     fun `getAllCountries should return a list of countries`() =
         runBlocking {
             // Given
-            coEvery { repository.getAllCountries() } returns countryList
+            val response = GenericState.Success(countryList)
+            coEvery { repository.getAllCountries() } returns response
 
             // When
             val result = useCase("")
@@ -39,40 +41,102 @@ class GetCountriesListUseCaseTest {
             // Then
             coVerify(exactly = 1) { repository.getAllCountries() }
             assertEquals(
-                countryList.size,
-                result.size,
+                response.item.size,
+                (result as GenericState.Success).item.size,
             )
-            assertEquals(countryList, result)
+            assertEquals(response, result)
+        }
+
+    @Test
+    fun `getAllCountries should return a list of countries when query is blank spaces`() =
+        runBlocking {
+            // Given
+            val response = GenericState.Success(countryList)
+            coEvery { repository.getAllCountries() } returns response
+
+            // When
+            val result = useCase("    ")
+
+            // Then
+            coVerify(exactly = 1) { repository.getAllCountries() }
+            assertEquals(
+                response.item.size,
+                (result as GenericState.Success).item.size,
+            )
+            assertEquals(response, result)
         }
 
     @Test
     fun `getCountriesByName should return a list of countries when query is pe`() =
         runBlocking {
             // Given
-            coEvery { repository.getCountriesByName(any()) } returns countryList
+            val response = GenericState.Success(countryList)
+            coEvery { repository.getCountriesByName(any()) } returns response
 
             // When
             val result = useCase("PE")
 
             // Then
             coVerify(exactly = 1) { repository.getCountriesByName(any()) }
-            assertEquals(countryList.size, result.size)
-            assertEquals(countryList, result)
+            assertEquals(
+                response.item.size,
+                (result as GenericState.Success).item.size,
+            )
+            assertEquals(response, result)
         }
 
     @Test
     fun `getAllCountries should return a empty list of countries`() =
         runBlocking {
             // Given
-            val list = listOf<Country>()
-            coEvery { repository.getAllCountries() } returns list
+            val response =  GenericState.Success(listOf<Country>())
+            coEvery { repository.getAllCountries() } returns response
 
             // When
             val result = useCase("")
 
             // Then
             coVerify(exactly = 1) { repository.getAllCountries() }
-            assertEquals(list.size, result.size)
-            assertEquals(list, result)
+            assertEquals(
+                response.item.size,
+                (result as GenericState.Success).item.size,
+            )
+            assertEquals(response, result)
+        }
+
+    @Test
+    fun `getAllCountries should return a an error`() =
+        runBlocking {
+            // Given
+            val response =  GenericState.Error("error")
+            coEvery { repository.getAllCountries() } returns response
+
+            // When
+            val result = useCase("")
+
+            // Then
+            coVerify(exactly = 1) { repository.getAllCountries() }
+            assertEquals(
+                response,
+                result,
+            )
+        }
+
+    @Test
+    fun `getCountriesByName should return a an error`() =
+        runBlocking {
+            // Given
+            val response =  GenericState.Error("error")
+            coEvery { repository.getCountriesByName(any()) } returns response
+
+            // When
+            val result = useCase("PE")
+
+            // Then
+            coVerify(exactly = 1) { repository.getCountriesByName(any()) }
+            assertEquals(
+                response,
+                result,
+            )
         }
 }

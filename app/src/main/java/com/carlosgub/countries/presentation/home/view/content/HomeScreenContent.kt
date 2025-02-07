@@ -52,20 +52,6 @@ private fun HomeCountriesListContent(
         countries = countries,
         goToDetail = goToDetail,
     )
-    /*if (state.query.length >= 2 && state.countriesList.isEmpty()) {
-        Text(
-            stringResource(R.string.home_screen_search_error_message),
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-        )
-    } else {
-        CountriesList(
-            countries = state.countriesList,
-            goToDetail = goToDetail,
-        )
-    }*/
 }
 
 @Composable
