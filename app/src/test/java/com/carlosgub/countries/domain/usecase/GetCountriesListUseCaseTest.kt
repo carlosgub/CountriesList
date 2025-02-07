@@ -13,13 +13,13 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-class GetAllCountriesUseCaseTest {
-    private lateinit var useCase: GetAllCountriesUseCase
+class GetCountriesListUseCaseTest {
+    private lateinit var useCase: GetCountriesListUseCase
     private val repository: CountriesRepository = mockk()
 
     @Before
     fun setUp() {
-        useCase = GetAllCountriesUseCase(repository)
+        useCase = GetCountriesListUseCase(repository)
     }
 
     @After
@@ -34,7 +34,7 @@ class GetAllCountriesUseCaseTest {
             coEvery { repository.getAllCountries() } returns countryList
 
             // When
-            val result = useCase()
+            val result = useCase("")
 
             // Then
             coVerify(exactly = 1) { repository.getAllCountries() }
@@ -46,6 +46,21 @@ class GetAllCountriesUseCaseTest {
         }
 
     @Test
+    fun `getCountriesByName should return a list of countries when query is pe`() =
+        runBlocking {
+            // Given
+            coEvery { repository.getCountriesByName(any()) } returns countryList
+
+            // When
+            val result = useCase("PE")
+
+            // Then
+            coVerify(exactly = 1) { repository.getCountriesByName(any()) }
+            assertEquals(countryList.size, result.size)
+            assertEquals(countryList, result)
+        }
+
+    @Test
     fun `getAllCountries should return a empty list of countries`() =
         runBlocking {
             // Given
@@ -53,7 +68,7 @@ class GetAllCountriesUseCaseTest {
             coEvery { repository.getAllCountries() } returns list
 
             // When
-            val result = useCase()
+            val result = useCase("")
 
             // Then
             coVerify(exactly = 1) { repository.getAllCountries() }

@@ -4,8 +4,7 @@ import com.carlosgub.countries.core.network.RetrofitInstance
 import com.carlosgub.countries.data.datasource.remote.CountriesRemoteDataSource
 import com.carlosgub.countries.data.repository.CountriesRepositoryImpl
 import com.carlosgub.countries.domain.repository.CountriesRepository
-import com.carlosgub.countries.domain.usecase.GetAllCountriesUseCase
-import com.carlosgub.countries.domain.usecase.GetCountriesByNameUseCase
+import com.carlosgub.countries.domain.usecase.GetCountriesListUseCase
 import com.carlosgub.countries.presentation.home.viewmodel.HomeViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
@@ -21,13 +20,7 @@ val appModules = module {
 
     // region UseCases
     factory {
-        GetAllCountriesUseCase(
-            countriesRepository = get(),
-        )
-    }
-
-    factory {
-        GetCountriesByNameUseCase(
+        GetCountriesListUseCase(
             countriesRepository = get(),
         )
     }

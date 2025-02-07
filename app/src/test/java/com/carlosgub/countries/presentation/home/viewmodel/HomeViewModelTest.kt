@@ -2,100 +2,71 @@
 
 package com.carlosgub.countries.presentation.home.viewmodel
 
-import com.carlosgub.countries.domain.usecase.GetAllCountriesUseCase
-import com.carlosgub.countries.domain.usecase.GetCountriesByNameUseCase
+import com.carlosgub.countries.domain.usecase.GetCountriesListUseCase
 import com.carlosgub.countries.mock.countryList
+import com.carlosgub.countries.mock.usa
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertTrue
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceTimeBy
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
+@ExperimentalCoroutinesApi
 class HomeViewModelTest {
     private lateinit var viewModel: HomeViewModel
-    private val getAllCountriesUseCase: GetAllCountriesUseCase = mockk(relaxed = true)
-    private val getCountriesByNameUseCase: GetCountriesByNameUseCase = mockk(relaxed = true)
+    private val getCountriesListUseCase: GetCountriesListUseCase = mockk()
+    private val testDispatcher = StandardTestDispatcher()
 
     @Before
     fun setUp() {
-        coEvery { getAllCountriesUseCase.invoke() } returns countryList
-        viewModel = HomeViewModel(getAllCountriesUseCase, getCountriesByNameUseCase)
+        Dispatchers.setMain(testDispatcher)
+        viewModel = HomeViewModel(getCountriesListUseCase)
+    }
+
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
     }
 
     @Test
-    fun `getAllCountries should update state with countries`() =
-        runTest {
-            // Given
-            coEvery { getAllCountriesUseCase.invoke() } returns countryList
+    fun `queryFieldChange should emit Loading then Success with results`() = runTest {
+        // Given
+        val query = "USA"
 
-            // When
-            viewModel.getAllCountries()
+        coEvery { getCountriesListUseCase(query) } returns countryList
 
-            // Verify
-            val updatedState = viewModel.state.first { it.allCountries.isNotEmpty() }
-            assertEquals(countryList, updatedState.allCountries)
-        }
+        // Capturar estados emitidos
+        val stateFlowValues = mutableListOf<HomeScreenState>()
+        val job = launch { viewModel.state.toList(stateFlowValues) }
 
-    @Test
-    fun `queryFieldChange should update query state and show loading`() =
-        runTest {
-            // Given
-            val query = "query"
+        // When
+        viewModel.queryFieldChange(query)
 
-            // When
-            viewModel.queryFieldChange(query)
+        // Avanzar el tiempo para que se complete el delay de 300ms
+        advanceTimeBy(300L)
 
-            // Then
-            val updatedState = viewModel.state.first { it.query == query }
-            assertEquals(query, updatedState.query)
-            assertEquals(true, updatedState.showLoading)
-        }
+        // Esperar a que el estado final sea emitido
+        runCurrent()
 
-    @Test
-    fun `queryFieldChange should update query state and not show loading`() =
-        runTest {
-            // Given
-            val query = "q"
+        // Verificar que se emitieron los estados esperados
+        assertEquals(HomeScreenState.Loading, stateFlowValues[0]) // Primero Loading
+        assertEquals(HomeScreenState.Success(countryList), stateFlowValues[1]) // Luego Success
 
-            // When
-            viewModel.queryFieldChange(query)
-
-            // Then
-            val updatedState = viewModel.state.first { it.query == query }
-            assertEquals(query, updatedState.query)
-            assertEquals(false, updatedState.showLoading)
-        }
-
-    @Test
-    fun `search should call getCountriesByNameUseCase when query is valid`() =
-        runTest {
-            // Given
-            val query = "peru"
-            coEvery { getCountriesByNameUseCase.invoke(query) } returns flow { emit(countryList) }
-
-            // When
-            viewModel.queryFieldChange(query)
-
-            // Assert
-            val updatedState = viewModel.searchState.first { it.isNotEmpty() }
-            assertEquals(countryList, updatedState)
-            coVerify(exactly = 1) { getCountriesByNameUseCase(query) }
-        }
-
-    @Test
-    fun `setSearchList should set countriesByName with countryList`() =
-        runTest {
-            // When
-            viewModel.setSearchList(countryList)
-
-            // Assert
-            val updatedState = viewModel.state.first { it.countriesByName.isNotEmpty() }
-            assertEquals(countryList, updatedState.countriesByName)
-        }
+        job.cancel()
+        coVerify(exactly = 1) { getCountriesListUseCase(query) }
+    }
 }

@@ -4,7 +4,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.carlosgub.countries.domain.model.Country
 import com.carlosgub.countries.presentation.home.viewmodel.HomeScreenState
 
-class HomeContentPreviewParameterProvider : PreviewParameterProvider<HomeScreenState> {
+class HomeContentPreviewParameterProvider : PreviewParameterProvider<List<Country>> {
     private val peru =
         Country(
             name = Country.CountryName(
@@ -57,23 +57,8 @@ class HomeContentPreviewParameterProvider : PreviewParameterProvider<HomeScreenS
     private val countryList = listOf(peru, usa)
 
     override val values = sequenceOf(
-        HomeScreenState(
-            allCountries = listOf(),
-            query = "",
-            countriesByName = listOf(),
-            showLoading = true
-        ),
-        HomeScreenState(
-            allCountries = countryList,
-            query = "",
-            countriesByName = listOf(),
-            showLoading = false
-        ),
-        HomeScreenState(
-            allCountries = listOf(),
-            query = "USA",
-            countriesByName = listOf(usa),
-            showLoading = false
-        )
+        listOf(),
+        countryList,
+        listOf(usa)
     )
 }
