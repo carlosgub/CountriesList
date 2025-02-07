@@ -12,6 +12,7 @@ import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
@@ -30,7 +31,11 @@ class HomeViewModelTest {
     @Test
     fun `getAllCountries should update state with countries`() =
         runTest {
-            //The calls is made in the init block
+            // Given
+            coEvery { getAllCountriesUseCase.invoke() } returns countryList
+
+            // When
+            viewModel.getAllCountries()
 
             // Verify
             val updatedState = viewModel.state.first { it.allCountries.isNotEmpty() }
@@ -78,22 +83,19 @@ class HomeViewModelTest {
             viewModel.queryFieldChange(query)
 
             // Assert
-            val updatedState = viewModel.state.first { it.query == query && it.countriesByName.isNotEmpty() }
-            assertEquals(countryList, updatedState.countriesByName)
+            val updatedState = viewModel.searchState.first { it.isNotEmpty() }
+            assertEquals(countryList, updatedState)
             coVerify(exactly = 1) { getCountriesByNameUseCase(query) }
         }
 
     @Test
-    fun `search should call getCountriesByNameUseCase when query is invalid`() =
+    fun `setSearchList should set countriesByName with countryList`() =
         runTest {
-            // Given
-            val query = "p"
-            coEvery { getCountriesByNameUseCase.invoke(query) } returns flow { emit(countryList) }
-
             // When
-            viewModel.queryFieldChange(query)
+            viewModel.setSearchList(countryList)
 
             // Assert
-            coVerify(exactly = 0) { getCountriesByNameUseCase(query) }
+            val updatedState = viewModel.state.first { it.countriesByName.isNotEmpty() }
+            assertEquals(countryList, updatedState.countriesByName)
         }
 }

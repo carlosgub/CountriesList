@@ -9,12 +9,14 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.carlosgub.countries.R
 import com.carlosgub.countries.domain.model.Country
 import com.carlosgub.countries.presentation.home.view.content.HomeContent
+import com.carlosgub.countries.presentation.home.view.observer.HomeObserver
 import com.carlosgub.countries.presentation.home.viewmodel.HomeViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -22,6 +24,13 @@ import org.koin.compose.viewmodel.koinViewModel
 internal fun HomeScreen(goToDetail: (Country) -> Unit) {
     val viewModel = koinViewModel<HomeViewModel>()
     val state = viewModel.state.collectAsStateWithLifecycle().value
+
+    LaunchedEffect(Unit) {
+        viewModel.getAllCountries()
+    }
+
+    HomeObserver(viewModel)
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = { HomeTopBar() },
