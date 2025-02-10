@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.carlosgub.countries.domain.model.Country
 import com.carlosgub.countries.presentation.home.view.content.HomeContent
 import com.carlosgub.countries.presentation.home.viewmodel.HomeScreenState
@@ -23,7 +24,7 @@ internal fun HomeObserver(
     homeViewModel: HomeViewModel,
     goToDetail: (Country) -> Unit
 ) {
-    val state = homeViewModel.state.collectAsState().value
+    val state = homeViewModel.state.collectAsStateWithLifecycle().value
     when (state) {
         is HomeScreenState.Success -> HomeContent(
             state.countriesList,
